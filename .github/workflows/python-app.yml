@@ -1,8 +1,24 @@
-- name: Set up Python
-uses: actions/setup-python@v4
-with:
-python-version: '3.12'
+name: Python Tests Actions
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-- name: Run tests
-run: python3 -m unittest teste/testes.py
+    steps:      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Run tests
+        run: python -m unittest teste/testes.py
